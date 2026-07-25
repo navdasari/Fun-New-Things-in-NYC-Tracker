@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NYC — What's New This Month</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap');
+
+  :root {
+    --pine: #24382c;
+    --pine-soft: #3a5442;
+    --parchment: #f6f1e6;
+    --parchment-dim: #ece3d0;
+    --gold: #c98a3a;
+    --gold-bright: #e3a94f;
+    --ink: #2a2620;
+    --ink-soft: #6b6355;
+    --line: #d9cdb0;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--parchment);
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(201,138,58,0.10), transparent 40%),
+      radial-gradient(circle at 90% 85%, rgba(36,56,44,0.08), transparent 45%);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+  }
+
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 1.15;
+    margin: 0 0 4px;
+    color: var(--pine);
+  }
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  .date-line {
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+
+  .refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--pine);
+    color: var(--parchment);
+    border: none;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .refresh-btn:hover { background: var(--pine-soft); }
+  .refresh-btn:disabled { opacity: 0.6; cursor: default; }
+
+  .refresh-icon {
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+  }
+
+  .refresh-icon.spin { animation: spin 1s linear infinite; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .refresh-error {
+    font-size: 12.5px;
+    color: #a8482f;
+    margin-top: -18px;
+    margin-bottom: 24px;
+    display: none;
+  }
+
+  .search-wrap { margin-bottom: 30px; }
+
+  .search-label {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-box input {
+    width: 100%;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    padding: 13px 40px 13px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+  }
+
+  .search-box input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,138,58,0.15);
+  }
+
+  .search-box .clear-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    font-size: 18px;
+    cursor: pointer;
+    display: none;
+    line-height: 1;
+    padding: 4px;
+  }
+
+  .search-hint {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+
+  .search-hint span {
+    color: var(--gold);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: rgba(201,138,58,0.4);
+  }
+
+  .no-results {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    padding: 10px 0 20px;
+    display: none;
+  }
+
+  .category-block { margin-bottom: 34px; }
+  .category-block.is-hidden { display: none; }
+  .card.is-hidden { display: none; }
+
+  .category-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .category-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--pine);
+  }
+
+  .category-count {
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .grid { display: flex; flex-direction: column; gap: 12px; }
+
+  .card {
+    background: var(--pine);
+    border-radius: 14px;
+    padding: 16px 20px;
+    color: var(--parchment);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .card-main { flex: 1; }
+
+  .card-name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+
+  .card-hood {
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+
+  .card-blurb {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: rgba(246,241,230,0.85);
+  }
+
+  footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  footer a { color: var(--gold); text-decoration: none; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">New York City</div>
+    <h1>What's new this month</h1>
+    <div class="header-row">
+      <div class="date-line" id="dateLine">Recent restaurant, bar, coffee, and dessert openings across July 2026 — pulled July 25</div>
+      <button class="refresh-btn" id="refreshBtn">
+        <svg class="refresh-icon" id="refreshIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+        <span id="refreshLabel">Refresh</span>
+      </button>
+    </div>
+    <div class="refresh-error" id="refreshError">Couldn't reach the search service just now — try again in a moment.</div>
+
+    <div class="search-wrap">
+      <div class="search-label">What's the vibe?</div>
+      <div class="search-box">
+        <input type="text" id="vibeInput" placeholder="e.g. cozy date night, cheap eats, late night, coffee to work from...">
+        <button class="clear-btn" id="clearBtn" aria-label="Clear search">&times;</button>
+      </div>
+      <div class="search-hint">Try: <span data-fill="south asian">south asian</span> · <span data-fill="date night">date night</span> · <span data-fill="cheap">cheap</span> · <span data-fill="wine bar">wine bar</span> · <span data-fill="sweet tooth">sweet tooth</span> · <span data-fill="festival">festival</span></div>
+    </div>
+
+    <div class="no-results" id="noResults">Nothing matched that — try fewer or different words.</div>
+
+    <div class="category-block" data-category="Asian &amp; Indian">
+      <div class="category-header">
+        <div class="category-title">Asian &amp; Indian</div>
+        <div class="category-count">8 new</div>
+      </div>
+      <div class="grid" id="grid-restaurants">
+        <div class="card" data-tags="indian spicy dinner date night group friendly comfort food">
+          <div class="card-main">
+            <div class="card-name">Badshah Social</div>
+            <div class="card-hood">Park Slope · Indian</div>
+            <div class="card-blurb">From a chef who previously ran a Hell's Kitchen spot of the same name. Crispy spinach chaat, Amritsari fish, and lamb shank nihari.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="dim sum chinese group friendly big group family cheap eats casual">
+          <div class="card-main">
+            <div class="card-name">Canto Blu</div>
+            <div class="card-hood">Borough Park · Cantonese</div>
+            <div class="card-blurb">A cavernous dim sum destination with a full dumpling lineup plus a separate sushi and raw fish menu.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="japanese skewers late night grilled interactive fun casual">
+          <div class="card-main">
+            <div class="card-name">Man Fire Yakitori</div>
+            <div class="card-hood">Flushing · Japanese</div>
+            <div class="card-blurb">Pick your own skewers — ribeye, duck tongue, flounder head — and watch them grill over charcoal. Open until 2am.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="fusion tasting menu upscale date night special occasion">
+          <div class="card-main">
+            <div class="card-name">Mūje</div>
+            <div class="card-hood">Chelsea · Pan-Asian</div>
+            <div class="card-blurb">An eight-course, $150 tasting menu from the Jungsik team, sharing space with sibling restaurant SEA — think yellowtail with fermented tomato and shrimp toast with caviar.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="korean kimbap quick bite cheap casual lunch">
+          <div class="card-main">
+            <div class="card-name">Roll Over</div>
+            <div class="card-hood">Union Square · Korean</div>
+            <div class="card-blurb">Counter-service kimbap with fillings like crispy pork cutlet and braised beef shank, plus tteokbokki — part of NYC's growing kimbap wave.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="japanese sushi casual quick bite neighborhood">
+          <div class="card-main">
+            <div class="card-name">Sushi Roll Club</div>
+            <div class="card-hood">Crown Heights · Japanese</div>
+            <div class="card-blurb">A sit-down follow-up to the counter-only Silver Rice, now with real tables and plates — rolls, chirashi bowls, and sashimi platters.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="vietnamese casual cheap eats comfort food family">
+          <div class="card-main">
+            <div class="card-name">Lady Pho</div>
+            <div class="card-hood">Williamsburg · Vietnamese</div>
+            <div class="card-blurb">Casual Vietnamese staples, including a phở built with a whole bone-in short rib and an avocado milkshake for dessert.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="indian latin fusion casual quick bite cheap eats lunch">
+          <div class="card-main">
+            <div class="card-name">Taco Mahal</div>
+            <div class="card-hood">Upper East Side · Indian-Latin</div>
+            <div class="card-blurb">A mini-chain crossing Indian and Latin American food — papadum chips instead of tortilla, plus biryani, paneer tikka masala, and tacos on naan or roti.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-block" data-category="Cocktail &amp; Wine Bars">
+      <div class="category-header">
+        <div class="category-title">Cocktail &amp; Wine Bars</div>
+        <div class="category-count">7 new</div>
+      </div>
+      <div class="grid" id="grid-bars">
+        <div class="card" data-tags="cocktails date night intimate low key trendy nightlife">
+          <div class="card-main">
+            <div class="card-name">Dokidoki</div>
+            <div class="card-hood">Williamsburg · Cocktail bar</div>
+            <div class="card-blurb">A Latin-Japanese cocktail bar pairing a shochu cafecito with low-ABV drinks, from a bartender pairing San Francisco and NYC bar pedigree.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="cocktails happy hour cheap budget friendly after work date night">
+          <div class="card-main">
+            <div class="card-name">Maison Madison</div>
+            <div class="card-hood">Financial District · Cocktail bar</div>
+            <div class="card-blurb">Parisian-inspired, with a weekday 4–6pm happy hour: affordable prosecco, negronis, and escargot at the bar.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="cocktails casual playful cheap late night fun group friendly">
+          <div class="card-main">
+            <div class="card-name">FKA</div>
+            <div class="card-hood">East Village · Cocktail bar</div>
+            <div class="card-blurb">Playful East Village newcomer serving dirty shirleys and espresso martinis alongside dollar oysters and hot dogs.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="quirky offbeat fun weird aesthetic date night nightlife">
+          <div class="card-main">
+            <div class="card-name">The Museum Bar + Gift Shop</div>
+            <div class="card-hood">Bushwick · Cocktail bar</div>
+            <div class="card-blurb">Natural-history-themed, right down to an ant-and-cricket negroni and dino nuggets on the menu.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="cocktails intimate late night date night neighborhood">
+          <div class="card-main">
+            <div class="card-name">Only Child</div>
+            <div class="card-hood">Bed-Stuy · Cocktail bar</div>
+            <div class="card-blurb">From the Frog Wine Bar team, open until 2am on weekends — martinis, popcorn, and clam dip.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="wine bar cozy backyard date night intimate charming">
+          <div class="card-main">
+            <div class="card-name">Wallace</div>
+            <div class="card-hood">Prospect Heights · Wine bar</div>
+            <div class="card-blurb">A cozy wine bar with backyard seating, martinis, and a small snacky menu of gildas and oysters.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="wine bar cute aesthetic outdoor people watching date night charming">
+          <div class="card-main">
+            <div class="card-name">Le Dive</div>
+            <div class="card-hood">West Village · Wine bar</div>
+            <div class="card-blurb">The Dimes Square wine bar's second location — martinis, a compact French snack menu, and plenty of sidewalk seating for people-watching.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-block" data-category="Coffee &amp; Dessert">
+      <div class="category-header">
+        <div class="category-title">Coffee &amp; Dessert</div>
+        <div class="category-count">7 new</div>
+      </div>
+      <div class="grid" id="grid-coffee">
+        <div class="card" data-tags="coffee work from cozy quiet morning cheap">
+          <div class="card-main">
+            <div class="card-name">Yellow Pear Coffee</div>
+            <div class="card-hood">Park Slope · Coffee</div>
+            <div class="card-blurb">Cantonese-inspired coffee shop with a shaken ovaltine you can add espresso to, plus pineapple buns and egg tarts.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="sweet tooth ice cream summer outdoor casual date night cheap">
+          <div class="card-main">
+            <div class="card-name">Hana Gelatoria</div>
+            <div class="card-hood">Long Island City · Ice cream</div>
+            <div class="card-blurb">Tea-infused gelato and soft serve in flavors like longjing and oolong, with waffle cones made in-house.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="sweet tooth trendy aesthetic cheap fun casual">
+          <div class="card-main">
+            <div class="card-name">Fifth Square</div>
+            <div class="card-hood">East Village · Bakery/Cafe</div>
+            <div class="card-blurb">This year's trend bake: waffles served on a stick, in flavors including Dubai chocolate.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="sweet tooth cheesecake cheap casual quick bite">
+          <div class="card-main">
+            <div class="card-name">Lamoone</div>
+            <div class="card-hood">Chinatown · Bakery/Cafe</div>
+            <div class="card-blurb">Basque cheesecake specialist, with rotating flavors like Thai tea, ube, pandan, and sweet basil.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="sweet tooth cake casual quick bite cheap aesthetic">
+          <div class="card-main">
+            <div class="card-name">Soaked Bar</div>
+            <div class="card-hood">Upper East Side · Bakery/Cafe</div>
+            <div class="card-blurb">Started as a boxed tres-leches-cake pop-up in 2024, now with a brick-and-mortar and a smoothie menu.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="coffee pastry quiet work from cozy morning">
+          <div class="card-main">
+            <div class="card-name">San Babila Cafe</div>
+            <div class="card-hood">Upper East Side · Bakery/Cafe</div>
+            <div class="card-blurb">Counter-service sibling of San Babila next door — focaccia, croissants (including Nutella), and pistachio froyo served in a croissant cone.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="sweet tooth hong kong tea aesthetic trendy cheap">
+          <div class="card-main">
+            <div class="card-name">Harbour Kafe</div>
+            <div class="card-hood">Williamsburg · Bakery/Cafe</div>
+            <div class="card-blurb">Hong Kong-inspired treats — honey tea, sponge cake — on a Williamsburg strip already thick with matcha spots.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-block" data-category="Experiences">
+      <div class="category-header">
+        <div class="category-title">Experiences</div>
+        <div class="category-count">6 new</div>
+      </div>
+      <div class="grid" id="grid-experiences">
+        <div class="card" data-tags="art museum architecture design indoor date night">
+          <div class="card-main">
+            <div class="card-name">Gothic by Design</div>
+            <div class="card-hood">The Met, Upper East Side · Exhibit</div>
+            <div class="card-blurb">A look at the drafting and drawing behind Gothic architecture, on view through July 19 — one of the last chances to catch it this summer.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="art museum history culture indoor free time">
+          <div class="card-main">
+            <div class="card-name">Revolution!</div>
+            <div class="card-hood">The Met, Upper East Side · Exhibit</div>
+            <div class="card-blurb">Tied to the America 250 celebrations, running through August 6 — art and artifacts from the Revolutionary era.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="art gallery small indoor free">
+          <div class="card-main">
+            <div class="card-name">You Must Change Your Life</div>
+            <div class="card-hood">GRIMM, Lower East Side · Group show</div>
+            <div class="card-blurb">A curated group exhibition of painters and sculptors, on view through August 7 at this Lower East Side gallery.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="food festival outdoor market weekend casual group friendly cheap">
+          <div class="card-main">
+            <div class="card-name">DEN Summer Markets</div>
+            <div class="card-hood">Multiple locations · Food market series</div>
+            <div class="card-blurb">Weekend food markets running Friday through Sunday across the boroughs, with themed events like Surf on July 30.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="food festival culture outdoor group friendly family">
+          <div class="card-main">
+            <div class="card-name">African Popup Festival</div>
+            <div class="card-hood">Summer Edition · Food &amp; culture festival</div>
+            <div class="card-blurb">A summer celebration of African food, music, and vendors — part of the city's growing calendar of heritage food festivals.</div>
+          </div>
+        </div>
+        <div class="card" data-tags="food festival drinks outdoor date night group friendly">
+          <div class="card-main">
+            <div class="card-name">Intrepid Summer Beer, Wine &amp; Spirits Fest</div>
+            <div class="card-hood">Intrepid Museum, Hell's Kitchen · Festival</div>
+            <div class="card-blurb">Tastings on the flight deck of the Intrepid — beer, wine, and spirits with a Hudson River backdrop.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Initial list sourced from The Infatuation's NYC new openings guide, museum and gallery listings, and NYC food festival calendars. Hit "Refresh" any time to have this page search the web live and pull in whatever's opened most recently.
+    </footer>
+  </div>
+
+<script>
+const input = document.getElementById('vibeInput');
+const clearBtn = document.getElementById('clearBtn');
+const noResults = document.getElementById('noResults');
+const refreshBtn = document.getElementById('refreshBtn');
+const refreshIcon = document.getElementById('refreshIcon');
+const refreshLabel = document.getElementById('refreshLabel');
+const refreshError = document.getElementById('refreshError');
+const dateLine = document.getElementById('dateLine');
+
+function categoryBlocks() { return Array.from(document.querySelectorAll('.category-block')); }
+
+// Broader concept -> the specific words actually used in card tags/blurbs.
+// This is curated, not true language understanding — searching a concept
+// that isn't listed here falls back to plain keyword matching.
+const CONCEPTS = {
+  'south asian': ['indian', 'nepalese', 'pakistani', 'bangladeshi', 'sri lankan'],
+  'east asian': ['japanese', 'chinese', 'cantonese', 'korean'],
+  'southeast asian': ['vietnamese', 'thai', 'filipino', 'singaporean', 'indonesian'],
+  'latin': ['latin', 'argentinian', 'peruvian', 'mexican', 'colombian', 'brazilian'],
+  'latin american': ['latin', 'argentinian', 'peruvian', 'mexican', 'colombian', 'brazilian'],
+  'mediterranean': ['mediterranean', 'greek', 'italian', 'turkish', 'lebanese'],
+  'seafood': ['seafood', 'lobster', 'oyster', 'raw bar'],
+  'sweets': ['sweet tooth', 'dessert', 'cake', 'ice cream', 'cheesecake'],
+  'dessert': ['sweet tooth', 'dessert', 'cake', 'ice cream', 'cheesecake'],
+  'caffeine': ['coffee', 'espresso'],
+  'drinks': ['cocktails', 'bar', 'wine', 'beer'],
+  'booze': ['cocktails', 'bar', 'wine', 'beer'],
+  'budget': ['cheap', 'cheap eats', 'budget friendly'],
+  'inexpensive': ['cheap', 'cheap eats', 'budget friendly'],
+  'romantic': ['date night', 'intimate', 'cozy'],
+  'group': ['group friendly', 'big group', 'family'],
+  'kids': ['family', 'group friendly'],
+};
+
+function expandTerms(raw) {
+  const words = new Set(raw.split(/\s+/).filter(Boolean));
+  for (const key in CONCEPTS) {
+    if (raw.includes(key)) {
+      CONCEPTS[key].forEach(w => w.split(/\s+/).forEach(part => words.add(part)));
+    }
+  }
+  return Array.from(words);
+}
+
+function cardText(card) {
+  const name = card.querySelector('.card-name')?.textContent || '';
+  const hood = card.querySelector('.card-hood')?.textContent || '';
+  const blurb = card.querySelector('.card-blurb')?.textContent || '';
+  const tags = card.getAttribute('data-tags') || '';
+  return (name + ' ' + hood + ' ' + blurb + ' ' + tags).toLowerCase();
+}
+
+function runFilter() {
+  const raw = input.value.trim().toLowerCase();
+  clearBtn.style.display = raw ? 'block' : 'none';
+  const blocks = categoryBlocks();
+
+  if (!raw) {
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('is-hidden'));
+    blocks.forEach(b => b.classList.remove('is-hidden'));
+    noResults.style.display = 'none';
+    restoreStaticCounts();
+    return;
+  }
+
+  const words = expandTerms(raw);
+  let anyVisible = false;
+
+  blocks.forEach(block => {
+    let blockHasVisible = false;
+    block.querySelectorAll('.card').forEach(card => {
+      const text = cardText(card);
+      const matches = words.some(w => text.includes(w));
+      card.classList.toggle('is-hidden', !matches);
+      if (matches) { blockHasVisible = true; anyVisible = true; }
+    });
+    block.classList.toggle('is-hidden', !blockHasVisible);
+    updateCountLabel(block, block.querySelectorAll('.card:not(.is-hidden)').length, 'match', 'matches');
+  });
+
+  noResults.style.display = anyVisible ? 'none' : 'block';
+}
+
+function updateCountLabel(block, n, singular, plural) {
+  const countEl = block.querySelector('.category-count');
+  if (countEl) countEl.textContent = n + ' ' + (n === 1 ? singular : plural);
+}
+
+function restoreStaticCounts() {
+  categoryBlocks().forEach(block => {
+    const total = block.querySelectorAll('.card').length;
+    updateCountLabel(block, total, 'new', 'new');
+  });
+}
+
+input.addEventListener('input', runFilter);
+clearBtn.addEventListener('click', () => { input.value = ''; runFilter(); input.focus(); });
+
+document.querySelectorAll('.search-hint span').forEach(el => {
+  el.addEventListener('click', () => {
+    input.value = el.getAttribute('data-fill');
+    runFilter();
+    input.focus();
+  });
+});
+
+// ---- Live refresh: asks Claude (with web search) to pull current openings ----
+
+function escapeHTML(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+const CATEGORY_GRID_IDS = {
+  'Asian & Indian': 'grid-restaurants',
+  'Cocktail & Wine Bars': 'grid-bars',
+  'Coffee & Dessert': 'grid-coffee',
+  'Experiences': 'grid-experiences',
+};
+
+function cardHTML(item) {
+  const tags = escapeHTML((item.tags || '').toLowerCase());
+  return `<div class="card" data-tags="${tags}">
+    <div class="card-main">
+      <div class="card-name">${escapeHTML(item.name)}</div>
+      <div class="card-hood">${escapeHTML(item.neighborhood)} · ${escapeHTML(item.type)}</div>
+      <div class="card-blurb">${escapeHTML(item.blurb)}</div>
+    </div>
+  </div>`;
+}
+
+function renderItems(items) {
+  const byCategory = { 'Asian & Indian': [], 'Cocktail & Wine Bars': [], 'Coffee & Dessert': [], 'Experiences': [] };
+  items.forEach(item => {
+    if (byCategory[item.category]) byCategory[item.category].push(item);
+  });
+
+  categoryBlocks().forEach(block => {
+    const cat = block.getAttribute('data-category');
+    const gridId = CATEGORY_GRID_IDS[cat];
+    const grid = document.getElementById(gridId);
+    const list = byCategory[cat] || [];
+    if (grid) grid.innerHTML = list.map(cardHTML).join('');
+    updateCountLabel(block, list.length, 'new', 'new');
+  });
+
+  input.value = '';
+  clearBtn.style.display = 'none';
+  noResults.style.display = 'none';
+}
+
+function setRefreshing(isLoading) {
+  refreshBtn.disabled = isLoading;
+  refreshIcon.classList.toggle('spin', isLoading);
+  refreshLabel.textContent = isLoading ? 'Refreshing…' : 'Refresh';
+}
+
+async function refreshData() {
+  setRefreshing(true);
+  refreshError.style.display = 'none';
+
+  const prompt = `Search the web for genuinely recent New York City openings and events — check sources like Eater NY, The Infatuation, Time Out New York, Conde Nast Traveler, and museum/gallery/festival listings. Build a list across exactly these four categories, respecting each category's specific scope:
+
+- "Asian & Indian": ONLY new restaurants that are Asian (Japanese, Chinese, Korean, Vietnamese, Thai, Filipino, etc.) or Indian cuisine. Do not include other cuisines even if they're notable openings.
+- "Cocktail & Wine Bars": ONLY new bars that are cocktail bars or wine bars with a distinctive, charming, or "cute" character — skip generic sports bars, pubs, or plain beer bars.
+- "Coffee & Dessert": new coffee shops, bakeries, or dessert spots — but skip ones that feel generic or interchangeable (a standard drip-coffee shop with nothing distinctive). Only include places with some unique angle (flavor, concept, origin story, design).
+- "Experiences": non-restaurant things to do — food festivals, new museum exhibits, gallery openings, cultural events, pop-ups.
+
+Pick about 3-4 per category (roughly 12-16 total), and keep blurbs tight since space is limited. For each, write a short original 1-sentence description (under 20 words, never copied verbatim from any source). Respond with ONLY a JSON array, no markdown code fences, no commentary before or after, in exactly this shape:
+[{"category":"Asian & Indian","name":"...","neighborhood":"...","type":"cuisine, bar type, or kind of experience","blurb":"...","tags":"lowercase space-separated cuisine and vibe keywords like: japanese casual date night cheap late night"}]`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }],
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+      }),
+    });
+
+    if (!response.ok) throw new Error('bad response');
+    const data = await response.json();
+    const textBlocks = (data.content || []).filter(b => b.type === 'text').map(b => b.text);
+    const combined = textBlocks.join('\n').replace(/```json|```/g, '').trim();
+    const jsonStart = combined.indexOf('[');
+    const jsonEnd = combined.lastIndexOf(']');
+    if (jsonStart === -1 || jsonEnd === -1) throw new Error('no json found');
+    const items = JSON.parse(combined.slice(jsonStart, jsonEnd + 1));
+    if (!Array.isArray(items) || items.length === 0) throw new Error('empty result');
+
+    renderItems(items);
+
+    const now = new Date();
+    dateLine.textContent = 'Recent restaurant, bar, coffee, and dessert openings — refreshed ' +
+      now.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }) +
+      ' at ' + now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+  } catch (e) {
+    refreshError.style.display = 'block';
+  } finally {
+    setRefreshing(false);
+  }
+}
+
+refreshBtn.addEventListener('click', refreshData);
+</script>
+</body>
+</html>
