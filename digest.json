@@ -1,0 +1,186 @@
+{
+  "updated": "November 27, 2026",
+  "source": "curated",
+  "items": [
+    {
+      "category": "Indian & Asian Restaurants",
+      "name": "Matane",
+      "neighborhood": "East Village",
+      "type": "Japanese",
+      "blurb": "A donburi spot at 59 1st Ave whose Matane Don piles minced hamachi, tuna, salmon, crab, and squid over sushi rice, topped with uni and ikura. The name means \"see you again.\"",
+      "tags": "japanese east asian rice bowl donburi sushi seafood casual lunch dinner",
+      "link": "https://www.theinfatuation.com/new-york/reviews/matane"
+    },
+    {
+      "category": "Indian & Asian Restaurants",
+      "name": "Hommali",
+      "neighborhood": "West Village",
+      "type": "Thai",
+      "blurb": "A Thai restaurant built around rice (the name means fragrant jasmine rice) from a chef who trained at Eleven Madison Park: dry-aged duck breast, seafood rice, and a tom yum seafood cocktail.",
+      "tags": "thai southeast asian rice duck seafood upscale date night dinner",
+      "link": "https://ediblemanhattan.com/restaurants/hommali-new-thai-restaurant-west-village/"
+    },
+    {
+      "category": "Indian & Asian Restaurants",
+      "name": "Ob Uan",
+      "neighborhood": "Upper East Side",
+      "type": "Thai",
+      "blurb": "In the former Spice Thai space at 1479 1st Ave, with classics like tom kha, som tum, and several curries and noodle dishes. Open for lunch and dinner every day.",
+      "tags": "thai southeast asian curry noodles casual cheap eats lunch comfort food neighborhood",
+      "link": "https://www.theinfatuation.com/new-york/reviews/ob-uan"
+    },
+    {
+      "category": "Indian & Asian Restaurants",
+      "name": "Bon Ga",
+      "neighborhood": "Upper East Side",
+      "type": "Korean",
+      "blurb": "Korean comfort food like bulgogi and seafood pancakes at 408 E 64th St, the former home of Cambodian spot Bayon, with a covered back patio.",
+      "tags": "korean east asian bulgogi comfort food patio outdoor group friendly dinner",
+      "link": "https://www.theinfatuation.com/new-york/guides/new-nyc-restaurants-openings"
+    },
+    {
+      "category": "Indian & Asian Restaurants",
+      "name": "Baan Thai",
+      "neighborhood": "Murray Hill",
+      "type": "Thai",
+      "blurb": "A casual Thai restaurant with a light-wood dining room and sleek long banquettes.",
+      "tags": "thai southeast asian casual cheap eats group friendly dinner",
+      "link": "https://www.theinfatuation.com/new-york/guides/new-nyc-restaurants-openings"
+    },
+    {
+      "category": "Cocktail & Wine Bars",
+      "name": "Ibérico",
+      "neighborhood": "Fort Greene",
+      "type": "Wine & Tapas Bar",
+      "blurb": "A Spanish and Portuguese wine bar from the Colonia Verde couple at 258 DeKalb Ave: pan con tomate, boquerones, and rissóis de leitão (suckling pig pastries). Walk-ins only, open until midnight Mon–Sat.",
+      "tags": "wine tapas spanish portuguese small plates date night late night walk in",
+      "link": "https://www.theinfatuation.com/new-york/reviews/iberico"
+    },
+    {
+      "category": "Cocktail & Wine Bars",
+      "name": "Below Deck",
+      "neighborhood": "Financial District",
+      "type": "Speakeasy",
+      "blurb": "A maritime-themed, reservation-only speakeasy hidden beneath The Bedford's Stone Street location at 55 Stone St.",
+      "tags": "cocktails speakeasy hidden reservation date night intimate nightlife",
+      "link": "https://www.theinfatuation.com/new-york/guides/new-nyc-restaurants-openings"
+    },
+    {
+      "category": "Cocktail & Wine Bars",
+      "name": "Bar à Part",
+      "neighborhood": "West Village",
+      "type": "Café & Wine Bar",
+      "blurb": "A sequel to Southern French bistro Zimmi's, right next door at 72 Bedford St, with small plates, an extensive wine list, and sweet and savory pastries.",
+      "tags": "wine french small plates pastries date night intimate cafe",
+      "link": "https://www.theinfatuation.com/new-york/guides/new-nyc-restaurants-openings"
+    },
+    {
+      "category": "Cocktail & Wine Bars",
+      "name": "My Friend Duke",
+      "neighborhood": "Williamsburg",
+      "type": "Cocktail Bar",
+      "blurb": "A cocktail bar from the people behind Mug's Ale House, in the former Nicky's Unisex space at 90 S 4th St.",
+      "tags": "cocktails bar casual neighborhood nightlife group friendly",
+      "link": "https://www.theinfatuation.com/new-york/guides/new-nyc-restaurants-openings"
+    },
+    {
+      "category": "Cocktail & Wine Bars",
+      "name": "Rosette Wine Bar",
+      "neighborhood": "Hudson Street",
+      "type": "Wine Bar",
+      "blurb": "A new wine bar on Hudson Street, listed among Eater NY's openings for the week of November 4.",
+      "tags": "wine bar date night",
+      "link": "https://www.yahoo.com/lifestyle/articles/restaurant-openings-know-york-city-201112506.html"
+    },
+    {
+      "category": "Coffee & Dessert",
+      "name": "Sadie's Bakery",
+      "neighborhood": "South Street Seaport",
+      "type": "Bakery",
+      "blurb": "Opened November 9 next door to Sadie's restaurant, with fresh breads, pastries, cakes, cookies, and coffee. Opens daily at 7am.",
+      "tags": "bakery coffee pastry cake cookies breakfast sweet tooth",
+      "link": "https://www.theinfatuation.com/new-york/reviews/sadies-bakery"
+    },
+    {
+      "category": "Coffee & Dessert",
+      "name": "Cahoots",
+      "neighborhood": "East Village",
+      "type": "Coffee & Wine Bar",
+      "blurb": "A coffee shop you can work from by day and a wine bar at night, at 422 E 9th St, with pastries, parfaits, and sandwiches.",
+      "tags": "coffee work from laptop wine pastries sandwiches casual",
+      "link": "https://www.theinfatuation.com/new-york/guides/new-nyc-restaurants-openings"
+    },
+    {
+      "category": "Coffee & Dessert",
+      "name": "La Cabra",
+      "neighborhood": "Chelsea",
+      "type": "Danish Bakery",
+      "blurb": "The Danish bakery's fourth NYC location and new flagship, right next to the High Line at 515 W 18th St. The cardamom bun is the house favorite.",
+      "tags": "bakery coffee danish pastry cardamom bun sweet tooth high line",
+      "link": "https://www.theinfatuation.com/new-york/guides/new-nyc-restaurants-openings"
+    },
+    {
+      "category": "Coffee & Dessert",
+      "name": "Neighbors Famous Ice Cream",
+      "neighborhood": "East Village",
+      "type": "Ice Cream",
+      "blurb": "Hani's, one of the city's most popular bakeries, is opening a stand-alone ice cream shop right next door, with soft serve and hard scoops. Slated for late November.",
+      "tags": "ice cream soft serve dessert sweet tooth",
+      "link": "https://www.theinfatuation.com/new-york/guides/nyc-fall-restaurant-openings-2026"
+    },
+    {
+      "category": "Experiences",
+      "name": "artport: A History of Internet Art",
+      "neighborhood": "Whitney Museum, Meatpacking District",
+      "type": "Exhibition",
+      "blurb": "The Whitney marks 25 years of its online net-art gallery with more than 100 commissioned works online and 25+ in the galleries. Through March 28, 2027.",
+      "tags": "museum art exhibition internet digital indoor rainy day",
+      "link": "https://whitney.org/exhibitions/artport-25"
+    },
+    {
+      "category": "Experiences",
+      "name": "New York Fashion at PS1, 1980–1984",
+      "neighborhood": "MoMA PS1, Long Island City",
+      "type": "Exhibition",
+      "blurb": "Original pieces and partial reconstructions of PS1's early fashion installations by Julio, Charles James, Willi Smith, and Betsey Johnson, for the museum's 50th anniversary. Through March 15, 2027.",
+      "tags": "museum fashion art exhibition queens indoor rainy day",
+      "link": "https://www.momaps1.org/en/programs/793-new-york-fashion-at-ps1-1980-1984"
+    },
+    {
+      "category": "Experiences",
+      "name": "Union Square Holiday Market",
+      "neighborhood": "Union Square",
+      "type": "Holiday Market",
+      "blurb": "Runs through December 24. Open 11am–8pm Sunday–Wednesday, until 9pm Thursday and Friday, and 10am–9pm Saturday.",
+      "tags": "holiday market shopping gifts outdoor food festival weekend",
+      "link": "https://www.nyctourism.com/shopping/union-square-holiday-market/"
+    },
+    {
+      "category": "Experiences",
+      "name": "Winter Village Rink",
+      "neighborhood": "Bryant Park, Midtown",
+      "type": "Ice Skating",
+      "blurb": "Skating is free if you bring your own skates (timed reservation required). Open daily from 8am, until midnight through January 3 and until 10pm after; the rink runs through February 28.",
+      "tags": "ice skating free outdoor holiday winter date night cheap",
+      "link": "https://bryantpark.org/activities/the-rink"
+    },
+    {
+      "category": "Experiences",
+      "name": "Holiday Market at MCNY",
+      "neighborhood": "Museum of the City of New York, East Harlem",
+      "type": "Holiday Market",
+      "blurb": "A holiday market with Brooklyn Pop-Up on December 5 and 6, 10am–5:30pm. The museum is also free on Wednesdays until 9pm through December 30.",
+      "tags": "holiday market gifts museum free weekend shopping",
+      "link": "https://www.mcny.org/2026-holiday-season"
+    },
+    {
+      "category": "Experiences",
+      "name": "Grand Bazaar Holiday Markets",
+      "neighborhood": "Upper West Side",
+      "type": "Holiday Market",
+      "blurb": "Saturday holiday markets on December 12 and 19, with a jewelry showcase, a plant pop-up, and holiday gifts.",
+      "tags": "holiday market gifts shopping jewelry plants weekend",
+      "link": "https://www.nycforfree.co/events"
+    }
+  ]
+}
