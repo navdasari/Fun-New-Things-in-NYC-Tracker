@@ -1,6 +1,6 @@
 # Fun New Things in NYC Tracker
 
-A digest of new NYC restaurants, bars, coffee and dessert spots, and experiences, as a free Streamlit app.
+A digest of new NYC restaurants, bars, coffee and dessert spots, and experiences, as a free Streamlit app available [here](https://fun-new-things-in-nyc-tracker.streamlit.app/).
 
 ## Keeping it fresh (no API costs)
 
