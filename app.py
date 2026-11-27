@@ -1,22 +1,23 @@
-"""Streamlit wrapper around nyc-openings-digest.html.
+"""Streamlit wrapper around nyc-openings-digest.html. No API costs.
 
-Two sources for the list, no API costs:
-- digest.json: the curated list, refreshed by asking Claude in a Claude Code session (see CLAUDE.md).
-- feed_digest.json: a quick refresh from free RSS feeds, made by the button below (not committed).
+- The cards always show the curated list in digest.json, refreshed by asking Claude in a Claude Code
+  session (see CLAUDE.md).
+- "Check the news" pulls fresh headlines from free RSS feeds into a separate list with links. Headlines
+  never go into the cards, because a headline isn't a place name.
 """
 
 import json
+import re
 from pathlib import Path
 
 import streamlit as st
-import streamlit.components.v1 as components
 
-from feeds import fetch_digest
+from feeds import fetch_headlines
 
 ROOT = Path(__file__).parent
 TEMPLATE = ROOT / "nyc-openings-digest.html"
 CURATED = ROOT / "digest.json"
-FEED = ROOT / "feed_digest.json"
+HEADLINES = ROOT / "headlines.json"  # not committed; lasts until the app restarts
 
 st.set_page_config(page_title="NYC: What's New", page_icon="🗽", layout="centered")
 
@@ -29,10 +30,10 @@ def load(path: Path) -> dict | None:
 
 
 def build_html(digest: dict | None) -> str:
-    """Return the page, with the digest swapped in through the page's own renderItems()."""
+    """Return the page, with the curated list swapped in through the page's own renderItems()."""
     page = TEMPLATE.read_text()
     if not digest:
-        return page  # no saved list: show the page as written
+        return page
     payload = json.dumps(digest).replace("</", "<\\/")
     inject = (
         "<script>(function(){"
@@ -44,45 +45,39 @@ def build_html(digest: dict | None) -> str:
     return page.replace("</body>", inject + "\n</body>", 1)
 
 
-feed = load(FEED)
-digest = feed or load(CURATED)
+def md_link(text: str, url: str) -> str:
+    safe = re.sub(r"([\[\]\\*_`])", r"\\\1", text)
+    return f"[{safe}]({url})" if url.startswith(("http://", "https://")) else safe
 
-col_refresh, col_reset, col_dl = st.columns(3)
-with col_refresh:
-    refresh = st.button("🔄 Quick refresh (free)", type="primary", use_container_width=True,
-                        help="Pull the latest posts from NYC food and culture news feeds.")
-with col_reset:
-    reset = st.button("✨ Curated list", use_container_width=True, disabled=feed is None,
-                      help="Go back to the list Claude curated.")
+
+digest = load(CURATED)
+headlines = load(HEADLINES)
+
+col_news, col_dl = st.columns(2)
+with col_news:
+    check = st.button("📰 Check the news (free)", type="primary", width="stretch",
+                      help="Pull this week's opening and event headlines from NYC news feeds.")
 with col_dl:
     st.download_button("⬇️ Download HTML", data=build_html(digest), file_name="nyc-openings-digest.html",
-                       mime="text/html", use_container_width=True)
+                       mime="text/html", width="stretch")
 
-if refresh:
+if check:
     with st.spinner("Reading news feeds…"):
-        result = fetch_digest()
-    if result["items"]:
-        FEED.write_text(json.dumps(result, indent=2))
-        st.session_state["flash"] = (
-            f"Found {len(result['items'])} items from {', '.join(result['feeds_ok'])}."
-            + (f" Couldn't reach: {', '.join(result['feeds_failed'])}." if result["feeds_failed"] else "")
-        )
-        st.rerun()
-    else:
-        st.warning("No new items found in the feeds, so the current list is unchanged."
-                   + (f" Couldn't reach: {', '.join(result['feeds_failed'])}." if result["feeds_failed"] else ""))
+        headlines = fetch_headlines()
+    HEADLINES.write_text(json.dumps(headlines, indent=2))
 
-if reset:
-    FEED.unlink(missing_ok=True)
-    st.rerun()
+if headlines:
+    total = sum(len(hs) for hs in headlines["groups"].values())
+    with st.expander(f"In the news this week: {total} headlines (checked {headlines['checked']})",
+                     expanded=bool(check)):
+        if not total:
+            st.write("No opening or event headlines in the feeds right now.")
+        for group, hs in headlines["groups"].items():
+            st.markdown(f"**{group}**")
+            st.markdown("\n".join(f"- {md_link(h['title'], h['link'])} · *{h['source']}*" for h in hs))
+        if headlines["feeds_failed"]:
+            st.caption("Couldn't reach: " + ", ".join(headlines["feeds_failed"]))
+        st.caption("Headlines are picked by keyword and may include the odd miss. "
+                   "The cards below are the curated list.")
 
-if msg := st.session_state.pop("flash", None):
-    st.success(msg)
-
-if feed:
-    st.caption("Showing a quick refresh from news feeds: headlines and snippets, sorted by keyword, "
-               "so some items may be off. **Curated list** switches back.")
-elif digest:
-    st.caption(f"Showing the curated list from {digest['updated']}.")
-
-components.html(build_html(digest), height=3200, scrolling=True)
+st.iframe(build_html(digest), height=3200)
