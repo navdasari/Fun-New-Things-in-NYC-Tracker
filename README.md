@@ -1,24 +1,29 @@
 # Fun New Things in NYC Tracker
 
-A digest of new NYC restaurants, bars, coffee and dessert spots, and experiences, as a Streamlit app.
-Press **Refresh** and Claude searches the web for what opened in the past month, then redraws the page.
+A digest of new NYC restaurants, bars, coffee and dessert spots, and experiences, as a free Streamlit app.
+
+## Two ways to refresh (no API costs)
+
+- **Quick refresh (free)**, the button in the app: pulls the latest posts from NYC food and culture RSS feeds
+  (Eater NY, Grub Street, Secret NYC, Untapped New York, Time Out New York) and sorts them into the four
+  categories with keyword rules. It's instant but rough: headlines as names, article snippets as blurbs, and
+  some misfiled posts. Each card links to the original article. **Curated list** switches back.
+- **Curated refresh**: in a Claude Code session on this repo, say "refresh the NYC tracker." Claude researches
+  new openings, writes `digest.json` (steps in `CLAUDE.md`) and pushes it. This is covered by a Claude
+  subscription, with no API key needed.
 
 ## Run locally
 
 ```bash
 pip install -r requirements.txt
-cp .streamlit/secrets.toml.example .streamlit/secrets.toml   # then paste your Anthropic API key
 streamlit run app.py
 ```
 
-## How it works
+## Files
 
-- `nyc-openings-digest.html`: the page design, search and "Surprise me", unchanged. It works on its own too.
-- `refresh.py`: one Claude call with web search to research openings, then a second call that turns the notes into structured items.
-- `app.py`: shows the page, saves each refresh to `digest.json`, and feeds it to the page's `renderItems()`.
-  **Download as HTML** saves a standalone copy of the current list.
+- `nyc-openings-digest.html`: the page design, search and "Surprise me". It also works on its own.
+- `digest.json`: the curated list. Until the first curated refresh, the app shows the list built into the HTML.
+- `feeds.py`: the free feed reader and keyword rules. Edit `FEEDS` to add or remove sources.
+- `app.py`: shows the page and swaps in whichever list is current. **Download HTML** saves a standalone copy.
 
-A refresh takes a few minutes and costs roughly a dollar or less in API usage.
-
-On Streamlit Community Cloud, add `ANTHROPIC_API_KEY` under App settings → Secrets. The Cloud
-filesystem is temporary, so a refreshed list lasts until the app restarts; then it falls back to the list in the HTML.
+On Streamlit Community Cloud, a quick refresh lasts until the app restarts; then the app shows the curated list again.

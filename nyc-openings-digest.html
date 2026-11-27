@@ -224,6 +224,17 @@
     color: rgba(246,241,230,0.85);
   }
 
+  .card-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--gold-bright);
+    text-decoration: none;
+  }
+
+  .card-link:hover { text-decoration: underline; }
+
   footer {
     margin-top: 20px;
     font-size: 12px;
@@ -615,6 +626,7 @@ function cardHTML(item) {
       <div class="card-name">${escapeHTML(item.name)}</div>
       <div class="card-hood">${escapeHTML(item.neighborhood)} · ${escapeHTML(item.type)}</div>
       <div class="card-blurb">${escapeHTML(item.blurb)}</div>
+      ${/^https?:\/\//.test(item.link || '') ? `<a class="card-link" href="${escapeHTML(item.link)}" target="_blank" rel="noopener">Read more${item.source ? ' on ' + escapeHTML(item.source) : ''} →</a>` : ''}
     </div>
   </div>`;
 }
