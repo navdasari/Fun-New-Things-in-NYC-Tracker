@@ -4,6 +4,24 @@
   "items": [
     {
       "category": "Indian & Asian Restaurants",
+      "name": "Mythily",
+      "neighborhood": "Williamsburg",
+      "type": "South Indian (Tamil)",
+      "blurb": "Top Chef alum Rasika Venkatesa's Tamil restaurant at 129 Havemeyer St, a permanent home for her pop-up. Opened September 30; Wed–Sat 5–10pm, Sun 4–9pm.",
+      "tags": "indian south indian south asian tamil dinner date night restaurant",
+      "link": "https://greenpointers.com/2026/09/30/top-chef-alums-mythily-opens-in-williamsburg/"
+    },
+    {
+      "category": "Indian & Asian Restaurants",
+      "name": "Befikre (coming soon)",
+      "neighborhood": "Midtown, near the Empire State Building",
+      "type": "Indian · Coming Soon",
+      "blurb": "The modern Indian bar and kitchen from Canada is staffing up its two-story NYC flagship at 42 W 33rd St, with DJs, live entertainment, and theatrical plating. No opening date yet.",
+      "tags": "indian south asian coming soon cocktails nightlife group friendly dinner",
+      "link": "https://www.theinfatuation.com/new-york/reviews/befikre"
+    },
+    {
+      "category": "Indian & Asian Restaurants",
       "name": "Matane",
       "neighborhood": "East Village",
       "type": "Japanese",
@@ -67,30 +85,48 @@
     },
     {
       "category": "Cocktail & Wine Bars",
-      "name": "Bar à Part",
-      "neighborhood": "West Village",
-      "type": "Café & Wine Bar",
-      "blurb": "A sequel to Southern French bistro Zimmi's, right next door at 72 Bedford St, with small plates, an extensive wine list, and sweet and savory pastries.",
-      "tags": "wine french small plates pastries date night intimate cafe",
-      "link": "https://www.theinfatuation.com/new-york/guides/new-nyc-restaurants-openings"
+      "name": "June Baby",
+      "neighborhood": "East Village",
+      "type": "Filipino-American Cocktail Bar",
+      "blurb": "NYC's first Filipino-American cocktail bar (opened October 28 at 197 Second Ave): ube piña coladas, a caramelized banana and jackfruit daiquiri, and lumpiang Shanghai. Walk-ins only, Tue–Sun 4pm–midnight.",
+      "tags": "cocktails filipino ube tropical late night walk in group friendly nightlife",
+      "link": "https://www.theinfatuation.com/new-york/reviews/june-baby"
     },
     {
       "category": "Cocktail & Wine Bars",
-      "name": "My Friend Duke",
-      "neighborhood": "Williamsburg",
+      "name": "Lady Delilah",
+      "neighborhood": "Meatpacking District",
+      "type": "Supper Club",
+      "blurb": "A 10,000-square-foot Art Deco supper club below 353 W 14th St from LA's h.wood Group, with bistro dinner, cocktails, and live entertainment all in one night. Opened November 3.",
+      "tags": "cocktails supper club live music upscale date night special occasion nightlife",
+      "link": "https://hauteliving.com/2026/10/lady-delilah-nyc/800320/"
+    },
+    {
+      "category": "Cocktail & Wine Bars",
+      "name": "Puttery",
+      "neighborhood": "Meatpacking District",
+      "type": "Mini Golf Bar",
+      "blurb": "Adults-only mini golf at 446 W 14th St: 24,000 square feet over five levels, with three bars including a rooftop.",
+      "tags": "mini golf games rooftop bar cocktails group friendly fun interactive nightlife",
+      "link": "https://www.timeout.com/newyork/things-to-do/things-to-do-in-nyc-this-weekend"
+    },
+    {
+      "category": "Cocktail & Wine Bars",
+      "name": "Rocky's",
+      "neighborhood": "South Williamsburg",
+      "type": "Arcade Bar",
+      "blurb": "Part café, part full bar, part arcade, with Pac-Man among the games.",
+      "tags": "arcade games pac-man cafe bar casual group friendly fun",
+      "link": "https://ediblebrooklyn.com/new-bars-in-brooklyn/"
+    },
+    {
+      "category": "Cocktail & Wine Bars",
+      "name": "Wilkie",
+      "neighborhood": "Crown Heights",
       "type": "Cocktail Bar",
-      "blurb": "A cocktail bar from the people behind Mug's Ale House, in the former Nicky's Unisex space at 90 S 4th St.",
-      "tags": "cocktails bar casual neighborhood nightlife group friendly",
-      "link": "https://www.theinfatuation.com/new-york/guides/new-nyc-restaurants-openings"
-    },
-    {
-      "category": "Cocktail & Wine Bars",
-      "name": "Rosette Wine Bar",
-      "neighborhood": "Hudson Street",
-      "type": "Wine Bar",
-      "blurb": "A new wine bar on Hudson Street, listed among Eater NY's openings for the week of November 4.",
-      "tags": "wine bar date night",
-      "link": "https://www.yahoo.com/lifestyle/articles/restaurant-openings-know-york-city-201112506.html"
+      "blurb": "A neighborhood bar at 820 Franklin Ave (opened October 21) with $7 snaquiris and beer-and-shot combos. Bring your own food for now; Spam musubi and schnitzel sandwiches are coming.",
+      "tags": "cocktails cheap neighborhood casual byo food snaquiri late night",
+      "link": "https://www.theinfatuation.com/new-york/reviews/wilkie"
     },
     {
       "category": "Coffee & Dessert",
